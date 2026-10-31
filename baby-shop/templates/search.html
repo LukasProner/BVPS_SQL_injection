@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Vyhladavanie - {{ mode }}</title></head>
+<body>
+<h1>BabyShop - Vyhladavanie ({{ mode|upper }})</h1>
+<a href="/">Domov</a> |
+<a href="/vulnerable/search">Vulnerable</a> |
+<a href="/secure/search">Secure</a> |
+<a href="/vulnerable/login">Login vulnerable</a> |
+<a href="/secure/login">Login secure</a>
+<hr>
+
+<form method="get">
+  Hladaj: <input type="text" name="q" value="{{ q }}" size="60">
+  <input type="submit" value="Hladat">
+</form>
+
+{% if rows %}
+<table border="1" cellpadding="5">
+  <tr><th>ID</th><th>Nazov / Username</th><th>Cena / Heslo</th><th>Popis / Rola</th></tr>
+  {% for r in rows %}
+  <tr>
+    <td>{{ r[0] }}</td>
+    <td>{{ r[1] }}</td>
+    <td>{{ r[2] }}</td>
+    <td>{{ r[3] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% elif q %}
+<p>Ziadne vysledky.</p>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Login - {{ mode }}</title></head>
+<body>
+<h1>BabyShop - Admin Login ({{ mode|upper }})</h1>
+<a href="/">Domov</a> |
+<a href="/vulnerable/search">Vyhladavanie vulnerable</a> |
+<a href="/secure/search">Vyhladavanie secure</a> |
+<a href="/vulnerable/login">Login vulnerable</a> |
+<a href="/secure/login">Login secure</a>
+<hr>
+
+<form method="post">
+  Meno: <input type="text" name="username"><br><br>
+  Heslo: <input type="text" name="password"><br><br>
+  <input type="submit" value="Prihlasit sa">
+</form>
+
+{% if user %}
+<p><b>USPESNE PRIHLASENIE!</b> Uzivatel: {{ user['username'] }}, Rola: {{ user['role'] }}</p>
+{% elif request.method == "POST" %}
+<p><b>Prihlasenie zlyhalo.</b></p>
+{% endif %}
+</body>
+</html>

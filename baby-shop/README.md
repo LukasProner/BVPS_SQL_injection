@@ -49,7 +49,7 @@ Apostrof `'` uzavrie reťazec, `UNION` pridá druhý dotaz, `--` zakomentuje zvy
 
 **Čo zadáš do vyhľadávacieho poľa:**
 ```
-' UNION SELECT id, full_name, credit_card, email, 1 FROM customers--
+' UNION SELECT id, full_name, credit_card, email FROM customers--
 ```
 
 **Čo sa stane:**

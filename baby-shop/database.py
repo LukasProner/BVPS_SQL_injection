@@ -53,25 +53,67 @@ def init_db():
         );
 
         INSERT INTO products (name, price, description) VALUES
+            ('Kocik Maxi Cosi Zelia', 290.00, 'lahky kombi kocik 3v1'),
+            ('Kocik Bugaboo Fox 5', 1200.00, 'premiovy kocik odpruzeny podvozok mega top stav radsej osobny odber'),
+            ('Kocik Joie Mytrax Flex', 450.00, 'skladaci kocik s otocnou sedackou'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Cybex Balios S Lux', 750.00, 'reverzibilna sedacka od narodenia do 22 kg malo pouzivany bez poskodeni'),
+            ('Kocik Thule Spring', 500.00, 'lahky mestsky kocik'),
+            ('Kocik Hauck Rapid 4', 190.00, 'ekonomicky kocik nastavitelna opierka chrbta radsej do mesta'),
             ('Kočík Maxi-Cosi Zelia',   299.99,  'Ľahký kombikočík 3v1, vhodný od narodenia.'),
             ('Kočík Bugaboo Fox 5',     1199.00, 'Prémiový kočík s odpruženým podvozkom.'),
             ('Kočík Joie Mytrax Flex',   449.50, 'Skladací kočík s otočnou sedačkou.'),
             ('Kočík Chicco Trio Best Friend', 349.00, 'Trio systém kompatibilný s autosedačkou Chicco.'),
             ('Kočík Silver Cross Wave',  899.00, 'Tandemový kočík pre dvoch detí, elegantný dizajn.'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Chicco Trio Best Friend', 350.00, 'trio system autosedacka chicco'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
             ('Kočík Cybex Balios S Lux', 749.90, 'Reverzibilná sedačka, vhodný od narodenia do 22 kg.'),
             ('Kočík Thule Spring',       499.00, 'Ľahký mestský kočík, skladný a manévrovateľný.'),
-            ('Kočík Hauck Rapid 4',      189.99, 'Ekonomický kočík s nastaviteľnou opierkou chrbta.');
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti'),
+            ('Kocik Silver Cross Wave', 890.00, 'tandem pre 2 deti');
 
         INSERT INTO users (username, password, role) VALUES
             ('admin', 'tajneheslo123', 'admin'),
-            ('jan',   'heslo456',      'user');
+            ('jan',   'heslo456',      'user'),
+            ('palo',  'heslo456',      'user'),
+            ('marek', 'heslo456',      'user'),
+            ('hetes', 'heslo456',      'user'),
+            ('juro',  'heslo456',      'user'),
+            ('peto',  'heslo456',      'user'),
+            ('milan', 'heslo456',      'user');
 
         INSERT INTO customers (full_name, email, phone, address, credit_card, date_of_birth) VALUES
-            ('Jana Kováčová',   'jana.kovacova@email.sk',   '0911 123 456', 'Hlavná 12, Bratislava',       '4111 1111 1111 1111', '1990-03-15'),
-            ('Peter Novák',     'peter.novak@gmail.com',    '0944 987 654', 'Námestie SNP 3, Banská Bystrica', '5500 0055 5555 5559', '1985-07-22'),
-            ('Mária Horváthová','maria.horvath@post.sk',    '0902 555 777', 'Obchodná 8, Košice',          '3714 496353 98431',  '1993-11-08'),
-            ('Tomáš Blaho',     'tomas.blaho@centrum.sk',   '0918 333 221', 'Partizánska 45, Žilina',      '4012 8888 8888 1881', '1988-01-30'),
-            ('Lucia Fialová',   'lucia.fialova@azet.sk',    '0905 741 852', 'Štefánikova 2, Trnava',       '6011 1111 1117 5556', '1995-06-19');
+            ('Jana Kovacova',    'jana.jana@email.sk',    '0911 123 456', 'Hlavna 12, Bratislava',        '4111 1111 1111 1111', '1990-03-15'),
+            ('Peter Novak',      'peter.peter@gmail.com',     '0944 987 654', 'Namestie SNP 3, Banska Bystrica', '5500 0055 5555 5559', '1985-07-22'),
+            ('Maria Horvathova', 'maria.ho@gmail.com',     '0902 555 777', 'Obchodna 8, Kosice',            '3714 496353 98431',   '1993-11-08'),
+            ('Tomas Blaho',      'tomas.blaho@gmail.com',    '0918 333 221', 'Partizanska 45, Zilina',        '4012 8888 8888 1881', '1988-01-30'),
+            ('Lucia Fialova',    'lucia.fialova@gmail.com',     '0905 741 852', 'Stefanikova 2, Trnava',         '6011 1111 1117 5556', '1995-06-19'),
+            ('Jana Kovacova',    'jana.kovacova@email.sk',    '0911 123 456', 'Hlavna 12, Bratislava',        '4111 1111 1111 1111', '1990-03-15'),
+            ('Peter Novak',      'peter.novak@gmail.com',     '0944 987 654', 'Namestie SNP 3, Banska Bystrica', '5500 0055 5555 5559', '1985-07-22'),
+            ('Maria Horvathova', 'maria.horvath@post.sk',     '0902 555 777', 'Obchodna 8, Kosice',            '3714 496353 98431',   '1993-11-08'),
+            ('Tomas Blaho',      'tomas.blaho@centrum.sk',    '0918 333 221', 'Partizanska 45, Zilina',        '4012 8888 8888 1881', '1988-01-30'),
+            ('Jana Kovacova',    'jana.jana@email.sk',    '0911 123 456', 'Hlavna 12, Bratislava',        '4111 1111 1111 1111', '1990-03-15'),
+            ('Peter Novak',      'peter.peter@gmail.com',     '0944 987 654', 'Namestie SNP 3, Banska Bystrica', '5500 0055 5555 5559', '1985-07-22'),
+            ('Maria Horvathova', 'maria.ho@gmail.com',     '0902 555 777', 'Obchodna 8, Kosice',            '3714 496353 98431',   '1993-11-08'),
+            ('Tomas Blaho',      'tomas.blaho@gmail.com',    '0918 333 221', 'Partizanska 45, Zilina',        '4012 8888 8888 1881', '1988-01-30'),
+            ('Jana Kovacova',    'jana.jana@email.sk',    '0911 123 456', 'Hlavna 12, Bratislava',        '4111 1111 1111 1111', '1990-03-15'),
+            ('Peter Novak',      'peter.peter@gmail.com',     '0944 987 654', 'Namestie SNP 3, Banska Bystrica', '5500 0055 5555 5559', '1985-07-22'),
+            ('Maria Horvathova', 'maria.ho@gmail.com',     '0902 555 777', 'Obchodna 8, Kosice',            '3714 496353 98431',   '1993-11-08'),
+            ('Tomas Blaho',      'tomas.blaho@gmail.com',    '0918 333 221', 'Partizanska 45, Zilina',        '4012 8888 8888 1881', '1988-01-30'),
+            ('Lucia Fialova',    'lucia.fialova@azet.sk',     '0905 741 852', 'Stefanikova 2, Trnava',         '6011 1111 1117 5556', '1995-06-19');
 
         INSERT INTO orders (customer_id, product_id, order_date, quantity) VALUES
             (1, 1, '2024-11-03', 1),

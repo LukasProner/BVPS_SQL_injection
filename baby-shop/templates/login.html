@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <title>Login - {{ mode }}</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: sans-serif; margin: 0; padding: 30px; background: #f5f5f5; text-align: center; }
-    h1 { margin-bottom: 6px; color: #c9706a; }
-    nav { margin: 10px 0 16px; }
-    nav a { margin: 0 8px; color: #555; }
-    hr { margin: 0 auto 24px; width: 80%; border: none; border-top: 1px solid #ccc; }
+    * {box-sizing:border-box;}
+    body{font-family:sans-serif;margin:0;padding:30px;background:#f5f5f5;text-align:center;}
+    h1{ margin-bottom: 6px;color: #c9706a;}
+    nav{margin: 10px 0 16px;}
+    nav a{margin: 0 8px;color: #555;}
+    hr{margin:0 auto 24px;width: 80%;border:none;border-top: 1px solid #ccc;}
   </style>
 </head>
 <body>
 
-<h1>BabyShop – Admin Login ({{ mode|upper }})</h1>
+<h1>BabyShop - Admin Login ({{ mode|upper }})</h1>
 <nav>
   <a href="/">Home</a> |
   <a href="/vulnerable/search">Vyhladavanie vul</a> |
@@ -25,15 +25,15 @@
 <hr>
 
 <form method="post">
-  Username: <input type="text" name="username"><br><br>
-  Password: <input type="text" name="password"><br><br>
+  Username: <input type="text" name="name"><br><br>
+  Password: <input type="text" name="passw"><br><br>
   <input type="submit" value="Log in">
 </form>
 
 {% if user %}
-<p><b>Login successful!</b> User: {{ user['username'] }}, Role: {{ user['role'] }}</p>
+<p><b>Login succ!</b> User: {{ user['username'] }}, Role: {{ user['role'] }}</p>
 {% elif request.method == "POST" %}
-<p><b>Login failed.</b></p>
+<p><b>Login failed</b></p>
 {% endif %}
 </body>
 </html>

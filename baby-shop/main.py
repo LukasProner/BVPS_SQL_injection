@@ -4,7 +4,6 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import os
 
 from database import get_db, init_db
 
@@ -23,91 +22,89 @@ def startup():
     init_db()
 
 
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request):
-    conn = get_db()
-    products = conn.execute("SELECT * FROM products").fetchall()
+@app.get("/",response_class=HTMLResponse)
+def home(req:Request):
+    conn=get_db()
+    p=conn.execute("SELECT * FROM prod").fetchall()
     conn.close()
-    return templates.TemplateResponse("index.html", {"request": request, "products": products})
+    return templates.TemplateResponse("index.html",{"request":req,"products":p})
 
 
-@app.get("/vulnerable/search", response_class=HTMLResponse)
-def vuln_search(request: Request, q: str = ""):
-    conn = get_db()
-    sql = "SELECT * FROM products WHERE name LIKE '%" + q + "%'"
-    log.info("[VULNERABLE] search SQL: %s", sql)
+@app.get("/vulnerable/search",response_class=HTMLResponse)
+def vuln_search(req:Request,q:str = ""):
+    conn=get_db()
+    sql="SELECT * FROM prod WHERE name LIKE '%" + q + "%'"
+    # log.info("[VULNERABLE] search SQL: %s", sql)
     try:
-        rows = conn.execute(sql).fetchall()
+        rows =conn.execute(sql).fetchall()
     except Exception as e:
-        log.error("[VULNERABLE] search ERROR: %s", e)
+        # log.error("vul err: %s",e)
         rows = []
     conn.close()
-    return templates.TemplateResponse("search.html", {
-        "request": request,
-        "mode": "vulnerable",
-        "rows": rows,
+    return templates.TemplateResponse("search.html",{
+        "request":req,
+        "mode":"vulnerable",
+        "rows":rows,
         "q": q,
     })
 
 
-@app.get("/vulnerable/login", response_class=HTMLResponse)
-def vuln_login_form(request: Request):
-    return templates.TemplateResponse("login.html", {
-        "request": request, "mode": "vulnerable",
-        "user": None, "sql": None, "error": None,
+@app.get("/vulnerable/login",response_class=HTMLResponse)
+def vuln_login_form(req: Request):
+    return templates.TemplateResponse("login.html",{
+        "request":req, "mode":"vulnerable", "user":None,
     })
 
 
 @app.post("/vulnerable/login", response_class=HTMLResponse)
-def vuln_login(request: Request, username: str = Form(...), password: str = Form(...)):
+def vuln_login(r: Request, name: str = Form(...), passw: str = Form(...)):
     conn = get_db()
-    sql = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
-    log.info("[VULNERABLE] login SQL: %s", sql)
+    sql = f"SELECT * FROM users WHERE username = '{name}' AND password = '{passw}'"
+    # log.info("VUL login SQL: %s", sql)
     try:
         user = conn.execute(sql).fetchone()
     except Exception as e:
-        log.error("[VULNERABLE] login ERROR: %s", e)
-        user = None
+        log.error("vulnerable login ERROR:%s",e)
+        user=None
     conn.close()
-    return templates.TemplateResponse("login.html", {
-        "request": request,
-        "mode": "vulnerable",
-        "user": user,
+    return templates.TemplateResponse("login.html",{
+        "request":r,
+        "mode":"vulnerable",
+        "user":user,
     })
 
 
-@app.get("/secure/search", response_class=HTMLResponse)
-def sec_search(request: Request, q: str = ""):
-    conn = get_db()
-    sql = "SELECT * FROM products WHERE name LIKE ?"
-    log.info("[SECURE] search SQL: %s  [param: '%%%s%%']", sql, q)
-    rows = conn.execute(sql, (f"%{q}%",)).fetchall()
+@app.get("/secure/search",response_class=HTMLResponse)
+def sec_search(r:Request,q:str=""):
+    conn=get_db()
+    sql = "SELECT * FROM prod WHERE name LIKE ?"
+    # log.info("[SECURE] search SQL: %s  [param:'%%%s%%']", sql, q)
+    selection=conn.execute(sql,(f"%{q}%",)).fetchall()
     conn.close()
     return templates.TemplateResponse("search.html", {
-        "request": request,
-        "mode": "secure",
-        "rows": rows,
-        "q": q,
+        "request":r,
+        "mode":"secure",
+        "rows":selection,
+        "q":q,
     })
 
 
-@app.get("/secure/login", response_class=HTMLResponse)
-def sec_login_form(request: Request):
+@app.get("/secure/login",response_class=HTMLResponse)
+def sec_login_form(req: Request):
     return templates.TemplateResponse("login.html", {
-        "request": request, "mode": "secure",
-        "user": None, "sql": None, "error": None,
+        "request":req, "mode":"secure","user": None,
     })
 
 
 @app.post("/secure/login", response_class=HTMLResponse)
-def sec_login(request: Request, username: str = Form(...), password: str = Form(...)):
+def sec_login(req: Request, name: str = Form(...), passw: str = Form(...)):
     conn = get_db()
-    sql = "SELECT * FROM users WHERE username = ? AND password = ?"
-    log.info("[SECURE] login SQL: %s  [params: ('%s', '***')]", sql, username)
-    user = conn.execute(sql, (username, password)).fetchone()
+    sql="SELECT * FROM users WHERE username = ? AND password = ?"
+    # log.info("[SECURE] login SQL: %s  [params: ('%s', '***')]",sql,name)
+    user=conn.execute(sql,(name, passw)).fetchone()
     conn.close()
-    return templates.TemplateResponse("login.html", {
-        "request": request,
-        "mode": "secure",
-        "user": user,
+    return templates.TemplateResponse("login.html",{
+        "request":req,
+        "mode":"secure",
+        "user":user,
     })

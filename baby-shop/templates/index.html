@@ -10,8 +10,8 @@
     nav { margin: 10px 0 8px; }
     nav a { margin: 0 8px; color: #555; }
     hr { margin: 0 auto 24px; width: 80%; border: none; border-top: 1px solid #ccc; }
-    .list { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .card {
+    .strollers { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .stroller {
       background: #fff;
       /* border: 1px solid #ddd; */
       border-radius: 7px;
@@ -22,15 +22,15 @@
       gap: 14px;
       text-align: left;
     }
-    .card img { width: 80px; height: 64px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-    .card .name { font-weight: bold; font-size: 17px; margin-bottom: 7px; }
-    .card .price { color: #c0392b; font-size: 17px; margin-bottom: 4px; }
-    .card .desc { font-size: 13px; line-height: 1.4; }
+    .stroller img{ width:80px; height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;}
+    .stroller .name { font-weight: bold;font-size:17px;margin-bottom:7px;}
+    .stroller .price{ color: #c0392b; font-size:17px;margin-bottom:4px;}
+    .stroller .desc{ font-size: 13px; line-height: 1.4; }
   </style>
 </head>
 <body>
 
-<h1>BabyShop – detske kociky</h1>
+<h1>BabyShop - detske kociky</h1>
 <nav>
   <a href="/vulnerable/search">Vyhladavanie (VUL)</a> |
   <a href="/secure/search">Vyhladavanie (SECURE)</a> |
@@ -40,14 +40,14 @@
 <hr>
 
 <h2>Products</h2>
-<div class="list">
+<div class="strollers">
   {% for p in products %}
-  <div class="card">
-    <img src="/static/stroller.png" alt="{{ p['name'] }}">
+  <div class="stroller">
+    <img src="/static/stroller.png" alt="{{p['name'] }}">
     <div>
-      <div class="name">{{ p['name'] }}</div>
-      <div class="price">{{ p['price'] }} €</div>
-      <div class="desc">{{ p['description'] }}</div>
+      <div class="name">{{p['name']}}</div>
+      <div class="price">{{p['price']}} €</div>
+      <div class="desc">{{p['desc']}}</div>
     </div>
   </div>
   {% endfor %}
